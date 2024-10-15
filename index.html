@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gematria Calculator - Dark Mode</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1c1c1c;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #2c2c2c;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #d1d1d1;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            color: #b5b5b5;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        label {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #b5b5b5;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #3c3c3c;
+            color: #e0e0e0;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .result, .translation, .error {
+            margin-top: 20px;
+            font-size: 1.5rem;
+        }
+
+        .result {
+            color: #27ae60;
+        }
+
+        .translation {
+            color: #d1d1d1;
+        }
+
+        .error {
+            color: #e74c3c;
+        }
+
+        .dark-mode-toggle {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gematria Calculator</h1>
+        
+        <p>Gematria is an alphanumeric code of assigning a numerical value to a name, word, or phrase based on its letters. It is a traditional Jewish system of numerology that originated from Hebrew. Different words with the same Gematria value are often considered to have some relation to each other.</p>
+        <p>Learn more about <a href="https://en.wikipedia.org/wiki/Gematria" target="_blank">Gematria on Wikipedia</a>.</p>
+
+        <form action="/calculate" method="post">
+            <label for="hebrew_text">Enter a word or sentence (any language):</label>
+            <input type="text" id="hebrew_text" name="hebrew_text" required placeholder="Type in any language">
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if user_input %}
+            <p class="translation">The translation of '{{ user_input }}' to Hebrew is: {{ translation }}</p>
+            <p class="result">The Gematria value of '{{ translation }}' is: {{ gematria_value }}</p>
+        {% endif %}
+
+        {% if error_message %}
+            <p class="error">{{ error_message }}</p>
+        {% endif %}
+
+        <div class="dark-mode-toggle">
+            <button onclick="toggleDarkMode()">Toggle Dark/Light Mode</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            const container = document.querySelector('.container');
+            const heading = document.querySelector('h1'); // Select the h1 element
+
+            // Toggle body background and text color
+            if (body.style.backgroundColor === 'white') {
+                body.style.backgroundColor = '#1c1c1c';
+                body.style.color = '#e0e0e0';
+                container.style.backgroundColor = '#2c2c2c';
+                heading.style.color = '#d1d1d1'; // Dark mode: light gray heading
+            } else {
+                body.style.backgroundColor = 'white';
+                body.style.color = '#333';
+                container.style.backgroundColor = 'white';
+                heading.style.color = '#333'; // Light mode: darker heading for visibility
+            }
+        }
+    </script>
+</body>
+</html>
